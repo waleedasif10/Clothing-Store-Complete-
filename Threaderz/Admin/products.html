@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Displaying Products</title>
+    <link rel="icon" href="White2.png" type="image/png">
+    <link rel="stylesheet" href="Projectcss2.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="angular-1.3.14.js"></script>
+
+
+  <style>
+      p{font-size:xx-large;font-weight: bolder;}
+      div{text-align: center;height: auto;}
+        tr{padding-top: 10px;padding-bottom: 10px;}
+        input[type=button]
+        {
+            margin-left: 30px;
+            padding: 5px;
+            font-weight: bold;
+            background-color:beige ;
+            border-radius: 5px;
+        }
+        span{
+            font-size: larger;
+            font-weight: bold;
+        }
+
+        th{text-align: center;}
+
+        #logo{background-color: black;text-align: center;height: 10em;max-width: 100%;}
+  </style>
+
+
+
+</head>
+
+<body>
+
+	<div id="logo"><img style="height:10em;" src="1583354940827.png" alt="Threaderz Logo"></div>
+
+    <div >
+		<nav>
+			<div id="nav-links" class="container">
+				
+			<ul >
+                <li><a href="admin1.html">Main Page</a></li>
+				<li><a  href="products.html"> Products</a></li>
+				<li><a href="insert1.php"> Insert</a></li>
+                <li><a href="update1.php"> Update</a></li>
+			
+				
+				
+
+			</ul>
+			</div>
+			</nav>
+
+    </div>
+
+    <div>
+        <br><br>
+        <center><p>PRODUCTS RECORD</p></center>
+
+
+        <form action="">
+            <input type="button" value="Insert a new product" onclick="window.location='insert1.php' ">
+        </form>
+    
+        <table  class='table table-striped table-bordered table-hover table-condensed' style = 'margin-top:50px' ng-app="display" ng-controller="cont">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ITEM</th>
+                <th>CATEGORY</th>
+                <th>PRICE</th>
+                <th>IMAGE SRC</th>
+                <th>STOCK</th>
+                <th>COLOR</th>
+                <th>DETAILS</th>
+            </tr>
+    
+            <tr ng-repeat="p in product">
+                <td>{{p.id}}</td>
+                <td>{{p.name}}</td>
+                <td>{{p.item}}</td>
+                <td>{{p.cat}}</td>
+                <td>{{p.price}}</td>
+                <td>{{p.img}}</td>
+                <td>{{p.stock}}</td>
+                <td>{{p.color}}</td>
+                <td>{{p.details}}</td>
+                <td style='border:0;background-color:white;border-bottom:0'> <a href="update1.php?pid={{p.id}}&n={{p.name}}&i={{p.item}}&c={{p.cat}}&p={{p.price}}&img={{p.img}}&s={{p.stock}}&clr={{p.color}}&d={{p.details}}">UPDATE</a></td>
+                <td style='border:0;background-color:white;border-bottom:0'> <a href="delete1.php?pid={{p.id}}">DELETE</a></td>
+            </tr>
+        </table>
+
+
+    </div>
+    <script>
+        var a = angular.module("display",[]);
+        a.controller('cont', function($scope, $http)
+        {
+            $http(
+                {
+                    method: 'get',
+                    url: 'products.php'
+                }
+            ).then(function success(response)
+            {
+                $scope.product = response.data;
+            })
+        })
+        
+    </script>
+    
+</body>
+
+</html>

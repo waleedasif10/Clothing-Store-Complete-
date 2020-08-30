@@ -1,0 +1,16 @@
+ if(isset($_POST['submit'])){
+
+	$name = mysqli_real_escape_string($conn,$values["item_name"]);
+	$quantity = mysqli_real_escape_string($conn,$values["item_quantity"]);
+	$total = mysqli_real_escape_string($conn,$values["item_price"]);
+
+	$sql = "INSERT INTO buy (Name,quantity, total)
+VALUES ('$name','$quantity' ,'$total')";
+   if(mysqli_query($conn,$sql)){
+
+	header('Location: Cart.php');
+
+}else{
+  echo 'query error:'.mysqli_error($conn);
+}
+ }
